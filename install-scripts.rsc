@@ -1,4 +1,4 @@
-:local baseUrl "https://raw.githubusercontent.com/EyeTeaSwedenAB/routeros-scripts/release"
+:local baseUrl "https://raw.githubusercontent.com/EyeTeaSwedenAB/routeros-scripts/main"
 
 :local files {
     "util"
