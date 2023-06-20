@@ -20,7 +20,7 @@
     }
 
     :if ([:typeof $interfaceName] = "nothing") do={
-        :set interfaceName [$readInput "Enter interface name:"]
+        :set interfaceName [$readInput "Enter parent interface name:"]
     }
     :if ([/interface find name=$interfaceName] = "") do={
         :error "Invalid interface '$interfaceName'."
