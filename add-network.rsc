@@ -32,7 +32,7 @@
     :local networkAddress ($gatewayAddress & (~(255.255.255.255 >> $prefixLength)))
     /ip address add address="$gatewayAddress/$prefixLength" interface=$interface
 
-    :local poolName "dhcp-$name"
+    :local poolName "DHCP_$name"
     /ip pool add name=$poolName ranges="$($networkAddress | 0.0.0.100)-$($networkAddress | 0.0.0.199)"
     /ip dhcp-server add name=$name interface=$interface address-pool=$poolName lease-time=1:00:00 disabled=no
     /ip dhcp-server network add address="$networkAddress/$prefixLength" gateway=$gatewayAddress
