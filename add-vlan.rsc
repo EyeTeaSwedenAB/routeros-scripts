@@ -1,5 +1,7 @@
 :global addVlan do={
     :global readInput
+    :global readBool
+    :global addNetwork
 
     :local tmpName $name
     :local tmpId $id
@@ -37,5 +39,9 @@
     :if ([/interface get $interfaceValue type] = "bridge") do={
         /interface bridge vlan add bridge=$interfaceName tagged=$interfaceName vlan-ids=$vlanId
     }
-    /interface list member add interface=$vlanName list=LAN
+    /interface list member add list=LAN interface=$vlanName
+
+    :if ([$readBool "Configure IP addressing for this VLAN?" default-value=yes]) do={
+        $addNetwork name=$vlanName interface=$vlanName
+    }
 }
