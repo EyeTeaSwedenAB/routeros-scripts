@@ -4,6 +4,8 @@
     "util"
     "add-network"
     "add-vlan"
+    "add-wireguard-interface"
+    "add-wireguard-peer"
 }
 
 :foreach file in=$files do={
