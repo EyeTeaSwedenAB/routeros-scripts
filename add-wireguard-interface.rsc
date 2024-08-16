@@ -36,9 +36,22 @@
     /ip firewall address-list add list=WG_ENDPOINT address=[$readInput "Enter endpoint address:"] disabled=yes comment="Used for generating WireGuard configuration"
     :put ""
 
+    :local dnsServer [$readInput ("Enter DNS server address: (or press Enter to continue)")]
+
+    :if ($dnsServer != "") do={
+        do {
+            /ip firewall address-list add list=WG_DNS_SERVER address=$dnsServer disabled=yes comment="Used for generating WireGuard configuration"
+        } on-error={
+            /terminal style error
+            :put "Invalid address"
+            /terminal style none
+        }
+    }
+
     :local continue true
 
     :while ($continue) do={
+        :put ""
         :local allowedAddress [$readInput ("Enter allowed IP address: (or press Enter to continue)")]
 
         :if ($allowedAddress != "") do={
