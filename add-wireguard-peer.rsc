@@ -70,6 +70,8 @@
     :set allowedIp [$replaceChar [:tostr $allowedIp] ";" ", "]
 
     :put ""
+    :put "=== COPY BELOW THIS LINE ==="
+    :put ""
     :put "[Interface]"
     :put "PrivateKey = $peerPrivateKey"
     :put "Address = $address"
