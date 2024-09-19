@@ -21,8 +21,17 @@
         :set vlanId [$readInput "Enter VLAN ID:"]
     }
 
+    :local parentInterfacePrompt "Enter parent interface name:"
+    :local defaultParentInterface
+    :local bridges [/interface bridge find]
+    :if ([:len $bridges] > 0) do={
+        :set defaultParentInterface [/interface get [:pick $bridges 0] name]
+        :set parentInterfacePrompt "$parentInterfacePrompt [$defaultParentInterface]"
+    }
+
     :if ([:typeof $interfaceName] = "nothing") do={
-        :set interfaceName [$readInput "Enter parent interface name:"]
+        :set interfaceName [$readInput $parentInterfacePrompt]
+        :if ([:typeof $defaultParentInterface] = "str" && $interfaceName = "") do={ :set interfaceName $defaultParentInterface }
     }
     :if ([/interface find name=$interfaceName] = "") do={
         :error "Invalid interface '$interfaceName'."
