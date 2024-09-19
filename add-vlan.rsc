@@ -37,7 +37,7 @@
     /interface vlan add name=$vlanName interface=$interfaceName vlan-id=$vlanId
 
     :if ([/interface get $interfaceValue type] = "bridge") do={
-        /interface bridge vlan add bridge=$interfaceName tagged=$interfaceName vlan-ids=$vlanId
+        /interface bridge vlan add bridge=$interfaceName tagged=$interfaceName vlan-ids=$vlanId comment=$vlanName
     }
     /interface list member add list=LAN interface=$vlanName
 
