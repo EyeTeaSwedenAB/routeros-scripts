@@ -9,10 +9,11 @@
 }
 
 :foreach file in=$files do={
-    /tool fetch "$baseUrl/$file.rsc"
+    :put "Downloading $file.rsc..."
+    /tool fetch "$baseUrl/$file.rsc" as-value
 }
 
-:delay 0.5
+:delay 0.1
 
 :foreach file in=$files do={
     :local fileName "$file.rsc"
