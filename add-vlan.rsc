@@ -48,7 +48,13 @@
     :if ([/interface get $interfaceValue type] = "bridge") do={
         /interface bridge vlan add bridge=$interfaceName tagged=$interfaceName vlan-ids=$vlanId comment=$vlanName
     }
-    /interface list member add list=LAN interface=$vlanName
+    :if ([:len [/interface list find name=LAN]] > 0) do={
+        /interface list member add list=LAN interface=$vlanName
+    } else={
+        /terminal style error
+        :put "No suitable interface list for outgoing LAN traffic found. Verify firewall rules manually."
+        /terminal style none
+    }
 
     :if ([$readBool "Configure IP addressing for this VLAN?" default-value=yes]) do={
         $addNetwork name=$vlanName interface=$vlanName
