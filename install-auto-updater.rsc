@@ -38,6 +38,9 @@ $waitFile install-auto-updater.rsc
 
 /system routerboard settings set auto-upgrade=yes
 
+/system scheduler remove [find name="update-check"]
+/system scheduler remove [find name="update-firmware"]
+
 # 2001-01-01 is a Monday! Adjust day of month as desired.
 /system scheduler add name="update-check" interval=7d start-date=jan/03/2001 start-time=01:00:00 on-event=[/file get update-check.rsc contents]
 /system scheduler add name="update-firmware" disabled=yes start-time=startup on-event=[/file get update-firmware.rsc contents] comment="Update firmware following software update (automatically enabled)"
